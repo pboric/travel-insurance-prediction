@@ -1,55 +1,49 @@
 # Travel Insurance Prediction
 
-This repository contains code and data related to predicting travel insurance purchases based on various features. The goal is to understand the factors influencing travel insurance decisions and build a predictive model.
+Which customers buy travel insurance? Exploratory analysis, hypothesis tests and classification models on data
+about 1,987 customers of a travel company (age, employment, income, family size, chronic diseases and travel
+history).
 
-## Dataset
+## Results
 
-The dataset used for this project is `TravelInsurancePrediction.csv`. It includes the following columns:
+Test set of 398 customers (35 % buyers). The models use the two features most clearly linked to buying insurance,
+annual income and whether the customer has travelled abroad:
 
-- `Age`: Age of the individual
-- `Employment Type`: The Sector In Which Customer Is Employed
-- `GraduateOrNot`: Whether The Customer Is College Graduate Or Not
-- `AnnualIncome`: Annual income
-- `FamilyMembers`: Number of family members
-- `ChronicDiseases`: Whether the individual has chronic diseases
-- `FrequentFlyer`: Derived Data Based On Customer's History Of Booking Air Tickets On Atleast 4 Different Instances[2017-2019]
-- `EverTravelledAbroad`: Whether the individual has traveled abroad
-- `TravelInsurance`: Target variable 
+| Model | Accuracy | Recall for buyers | Precision for buyers |
+|---|---:|---:|---:|
+| **Random Forest** | **0.79** | 0.45 | 0.93 |
+| SVM | 0.78 | 0.47 | 0.86 |
+| Logistic regression | 0.69 | 0.56 | 0.57 |
 
-## Exploratory Data Analysis (EDA)
+Random Forest has the best accuracy, but it finds fewer than half of the buyers; logistic regression finds more of
+them at the cost of many false positives. The right choice depends on whether missing a buyer or contacting a
+non-buyer is more costly.
 
-- Summary statistics
-- Distribution plots for numeric features
-- Imbalance percentages of categorical features
-- Correlation matrix
+## Key findings
 
-## Hypothesis Testing
+- Customers with higher annual income, frequent flyers and those who have travelled abroad are much more likely to
+  buy travel insurance.
+- Hypothesis tests show that age and income are significantly related to buying; family size is not.
 
-1. **Age Hypothesis**:
-   - Null hypothesis (H0): There is no significant difference in travel insurance purchases across different age groups.
-   - Alternative hypothesis (Ha): Travel insurance purchase behavior varies significantly among different age groups.
+## Repository
 
-2. **Income Hypothesis**:
-   - Null hypothesis (H0): There is no association between annual income and travel insurance purchases.
-   - Alternative hypothesis (Ha): Individuals with higher annual incomes are more likely to purchase travel insurance.
+| File | Content |
+|---|---|
+| [`Travel_Insurance_Prediction.ipynb`](Travel_Insurance_Prediction.ipynb) | EDA, hypothesis tests, model training with grid search and evaluation |
+| `TravelInsurancePrediction.csv` | The dataset |
 
-3. **Family Size Hypothesis**:
-   - Null hypothesis (H0): Family size does not impact travel insurance decisions.
-   - Alternative hypothesis (Ha): Travel insurance purchases differ based on family size (e.g., smaller families vs. larger families).
+## Run it
 
-## Model Selection and Performance
+```bash
+pip install -r requirements.txt
+jupyter notebook Travel_Insurance_Prediction.ipynb
+```
 
-- Three models were evaluated: Logistic Regression, Random Forest, and SVM.
-- Balancing techniques (SMOTE and undersampling) were applied.
-- Hyperparameter tuning was performed using GridSearchCV.
-- Random Forest achieved the best performance based on F1-score and overall accuracy.
+## Limitations
 
-## Conclusion
+Using only two features keeps the model simple and explainable, but it leaves out information (such as employment
+type and frequent-flyer status) that could improve recall.
 
-- Age and income significantly influence travel insurance decisions.
-- Family size does not significantly impact travel insurance choices.
-- The Random Forest model is recommended for predicting travel insurance purchases.
+## License
 
-## Author
-
-Petar Krešimir Borić
+MIT
